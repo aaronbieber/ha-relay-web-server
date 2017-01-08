@@ -2,9 +2,14 @@
 
 from flask import Flask
 import os
+import sys
 
 app = Flask(__name__)
-conduit = os.open("/Users/airborne/Projects/conduit", os.O_WRONLY)
+
+if not os.path.exists(pipe):
+    print("The given pipe file does not exist.")
+    sys.exit(1)
+conduit = os.open(pipe, os.O_WRONLY)
 
 @app.route("/")
 def index():
