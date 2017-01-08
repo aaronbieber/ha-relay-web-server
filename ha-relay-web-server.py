@@ -6,10 +6,17 @@ import sys
 
 app = Flask(__name__)
 
-if not os.path.exists(pipe):
+if not os.path.exists("config.cfg"):
+    print("The config.cfg file does not exist.")
+    sys.exit(1)
+else:
+    pipe_file = open("config.cfg").read()
+    print("Writing to pipe '%s'." % pipe_file)
+
+if not os.path.exists(pipe_file):
     print("The given pipe file does not exist.")
     sys.exit(1)
-conduit = os.open(pipe, os.O_WRONLY)
+conduit = os.open(pipe_file, os.O_WRONLY)
 
 @app.route("/")
 def index():
